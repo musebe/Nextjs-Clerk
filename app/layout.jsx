@@ -1,6 +1,6 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav";
-import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs';
 
 export const metadata = {
   title: "Clerk",

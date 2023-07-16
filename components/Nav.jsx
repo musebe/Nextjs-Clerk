@@ -1,17 +1,9 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from '@clerk/nextjs';
+import { UserButton, auth } from '@clerk/nextjs';
 
 const Nav = () => {
-  const { user } = useUser();
+  const { userId } = auth();
 
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
@@ -29,51 +21,65 @@ const Nav = () => {
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
         <div className='flex gap-3 md:gap-5'>
-          {user ? (
+          {userId && (
             <Link href='/create-todo' className='black_btn'>
               Create Post
             </Link>
-          ) : (
-            <div></div>
           )}
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode='modal'>
-              <button
+          {!userId && (
+            <>
+              <Link
                 type='button'
-                className='rounded-full bg-blue px-3.5 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset  hover:bg-blue-100'
+                href='sign-in'
+                className='text-blue-500 hover:text-black mr-4 '
               >
-                Sign in
-              </button>
-            </SignInButton>
-          </SignedOut>
+                Sign In
+              </Link>
+              <Link
+                href='sign-up'
+                className='text-blue-500 hover:text-black mr-4 '
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+          {userId && (
+            <div className='ml-auto'>
+              <UserButton afterSignOutUrl='/' />
+            </div>
+          )}
         </div>
       </div>
 
       {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
-        {user ? (
+        {userId && (
           <Link href='/create-todo' className='black_btn'>
             Create Post
           </Link>
-        ) : (
-          <div></div>
         )}
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-        <SignedOut>
-          <SignInButton mode='modal'>
-            <button
+        {!userId && (
+          <>
+            <Link
               type='button'
-              className='rounded-full bg-blue px-3.5 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset  hover:bg-blue-100'
+              href='sign-in'
+              className='text-blue-500 hover:text-black mr-4 '
             >
-              Sign in
-            </button>
-          </SignInButton>
-        </SignedOut>
+              Sign In
+            </Link>
+            <Link
+              href='sign-up'
+              className='text-blue-500 hover:text-black mr-4 '
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
+        {userId && (
+          <div className='ml-auto'>
+            <UserButton afterSignOutUrl='/' />
+          </div>
+        )}
       </div>
     </nav>
   );
