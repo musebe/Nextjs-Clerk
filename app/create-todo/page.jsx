@@ -2,45 +2,43 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { postTodo } from '../../utils/requests';
+import { useAuth } from '@clerk/nextjs';
 import Form from '@components/Form';
 
 const CreateToDo = () => {
   const router = useRouter();
+  const { userId, getToken } = useAuth();
 
-  const [submitting, setIsSubmitting] = useState(false);
-  const [post, setPost] = useState({ prompt: '', tag: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [posts, setPosts] = useState({ todo: '', tag: '' });
 
-  const createPrompt = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
+  const createTodo = async (e) => {
     try {
-      const response = await fetch('/api/prompt/new', {
-        method: 'POST',
-        body: JSON.stringify({
-          prompt: post.prompt,
-          userId: session?.user.id,
-          tag: post.tag,
-        }),
-      });
-
-      if (response.ok) {
+      e.preventDefault();
+      setSubmitting(true);
+      const token = await getToken({ template: 'supabase' });
+      const posts = await postTodo({ e, userId, token });
+      setPosts(posts);
+      if (posts) {
         router.push('/');
       }
+      // console.log(posts);
     } catch (error) {
-      console.log(error);
+      // Handle the error here
+      console.error('An error occurred:', error);
     } finally {
-      setIsSubmitting(false);
+      setSubmitting(false);
     }
   };
 
   return (
     <Form
-      type='Schedule'
-      post={post}
-      setPost={setPost}
+      type='Post'
+      post={posts}
+      setPost={setPosts}
       submitting={submitting}
-      handleSubmit={createPrompt}
+      handleSubmit={createTodo}
     />
   );
 };

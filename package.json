@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.21.14",
+    "@supabase/supabase-js": "^2.26.0",
     "autoprefixer": "10.4.14",
     "next": "13.4.8",
     "postcss": "8.4.24",
