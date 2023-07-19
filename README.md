@@ -3,21 +3,17 @@
 
 This is a deep dive into Clerk.com and Nextjs
 
-
 ## Authors
 
 - [@musebe](https://github.com/musebe)
-
 
 ## Documentation
 
 [Nextjs Documentation](https://nextjs.org/docs)
 
-[Clerk Documentatio](https://clerk.com/docs)
+[Clerk Documentation](https://clerk.com/docs)
 
 [Blog Article](https://dev.to/musebe/simplifying-authentication-in-nextjs-applications-with-clerk-3adh) 
-
-
 
 ## Demo
 
@@ -25,11 +21,14 @@ This is a deep dive into Clerk.com and Nextjs
 
 ## Environment Variables
 
-To run this project, you will need to add the following clerk environment variables to your .env file
+To run this project, you will need to add the following Clerk environment variables to your .env file:
 
+```sh
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=Your Publishable Key
+CLERK_SECRET_KEY=Your Clerk Secret Key
+```
 
-`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`=`Your Publishable Key`
-`CLERK_SECRET_KEY`=`Your Clerk Secret Key`
+> You can obtain your Clerk publishable and secret keys by signing up for a free account at [Clerk.com](https://clerk.com).
 
 ## Getting Started
 
